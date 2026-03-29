@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergio Nicolai Schermer — Timmerman & Projectmanager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #FF4D1C;
+    --dark: #0F0F0F;
+    --light: #F7F4EE;
+    --text: #1C1C1C;
+    --muted: #888;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--light);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: var(--light);
+    border-bottom: 2px solid var(--dark);
+  }
+  .nav-logo { font-family: var(--serif); font-weight: 900; font-size: 1.4rem; letter-spacing: -0.5px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--dark); margin-top: 65px; }
+  .hero-left { padding: 5rem 3rem 4rem; border-right: 2px solid var(--dark); display: flex; flex-direction: column; justify-content: space-between; }
+  .hero-tag { display: inline-block; background: var(--accent); color: white; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.9rem; margin-bottom: 2rem; }
+  .hero-name { font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900; line-height: 1; letter-spacing: -2px; }
+  .hero-name span { color: var(--accent); }
+  .hero-sub { font-size: 1.05rem; color: var(--muted); margin-top: 1.5rem; max-width: 400px; line-height: 1.65; }
+  .hero-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 0.85rem 2rem; font-family: var(--sans); font-size: 0.9rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; border: 2px solid var(--dark); transition: all 0.2s; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+  .btn-primary:hover { background: #e0380a; }
+  .btn-outline { background: transparent; color: var(--dark); }
+  .btn-outline:hover { background: var(--dark); color: var(--light); }
+  .hero-right { background: var(--dark); display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem; position: relative; overflow: hidden; }
+  .hero-right-bg { position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; border-radius: 50%; background: var(--accent); opacity: 0.15; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border: 2px solid rgba(255,255,255,0.12); position: relative; z-index: 1; }
+  .stat { padding: 2rem; border: 1px solid rgba(255,255,255,0.08); }
+  .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 900; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .hero-scroll { color: rgba(255,255,255,0.3); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; position: relative; z-index: 1; }
+
+  /* SECTIONS */
+  section { border-bottom: 2px solid var(--dark); }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; padding: 2rem 3rem 1.5rem; border-bottom: 1.5px solid var(--dark); }
+  .section-num { font-family: var(--serif); font-size: 0.9rem; color: var(--muted); }
+  .section-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+  .section-title span { color: var(--accent); }
+
+  /* TIMELINE */
+  .timeline { padding: 3rem; display: grid; grid-template-columns: 230px 1fr; }
+  .timeline-item { display: contents; }
+  .timeline-year { font-size: 0.88rem; font-weight: 500; padding: 1.5rem 2rem 1.5rem 0; border-right: 2px solid var(--dark); color: var(--muted); position: relative; }
+  .timeline-year::after { content: ''; position: absolute; right: -7px; top: 2rem; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
+  .timeline-content { padding: 1.5rem 0 1.5rem 2.5rem; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .timeline-role { font-weight: 500; font-size: 1.05rem; }
+  .timeline-company { color: var(--accent); font-weight: 500; }
+  .timeline-desc { color: var(--muted); font-size: 0.92rem; margin-top: 0.5rem; line-height: 1.65; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .project-card { padding: 2.5rem; border-right: 2px solid var(--dark); overflow: hidden; transition: background 0.25s; }
+  .project-card:last-child { border-right: none; }
+  .project-card:hover { background: var(--dark); }
+  .project-card:hover .project-title { color: white; }
+  .project-card:hover .project-desc { color: rgba(255,255,255,0.45); }
+  .project-card:hover .project-tag { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.45); }
+  .project-num { font-family: var(--serif); font-size: 4rem; font-weight: 900; color: rgba(0,0,0,0.06); line-height: 1; margin-bottom: 1rem; transition: color 0.25s; }
+  .project-card:hover .project-num { color: rgba(255,255,255,0.04); }
+  .project-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.8rem; transition: color 0.25s; }
+  .project-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.6; transition: color 0.25s; }
+  .project-tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .project-tag { font-size: 0.75rem; padding: 0.25rem 0.7rem; border: 1.5px solid var(--dark); text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.25s; }
+
+  /* BLOG */
+  .blog-layout { display: grid; grid-template-columns: 280px 1fr; }
+  .blog-sidebar { padding: 2.5rem; border-right: 2px solid var(--dark); }
+  .blog-meta-item { margin-bottom: 2rem; }
+  .blog-meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
+  .blog-meta-value { font-weight: 500; }
+  .blog-content { padding: 3rem 4rem; max-width: 780px; }
+  .blog-headline { font-family: var(--serif); font-size: 2.5rem; font-weight: 900; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1.5rem; }
+  .blog-lede { font-size: 1.1rem; color: var(--muted); line-height: 1.7; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1.5px solid var(--dark); }
+  .blog-body p { margin-bottom: 1.4rem; font-size: 1rem; line-height: 1.8; }
+  .blog-body h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; margin: 2.5rem 0 1rem; }
+  .blog-pull { border-left: 4px solid var(--accent); padding: 1rem 1.5rem; margin: 2rem 0; font-family: var(--serif); font-size: 1.2rem; font-weight: 700; line-height: 1.4; color: var(--accent); }
+
+  /* FUTURE */
+  .future-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .future-card { padding: 3rem; border-right: 2px solid var(--dark); border-bottom: 2px solid var(--dark); }
+  .future-card:nth-child(even) { border-right: none; }
+  .future-card:nth-child(3), .future-card:nth-child(4) { border-bottom: none; }
+  .future-icon { width: 44px; height: 44px; background: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.3rem; }
+  .future-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .future-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+  /* CONTACT */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; }
+  .contact-left { padding: 4rem 3rem; border-right: 2px solid var(--dark); }
+  .contact-headline { font-family: var(--serif); font-size: 3.5rem; font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 1.5rem; }
+  .contact-headline span { display: block; color: var(--accent); }
+  .contact-info { margin-top: 2rem; font-size: 0.95rem; }
+  .contact-info a { color: var(--text); text-decoration: none; display: block; margin-bottom: 0.5rem; font-weight: 500; }
+  .contact-info a:hover { color: var(--accent); }
+  .contact-right { padding: 4rem 3rem; background: var(--dark); }
+  .contact-right-title { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .skills-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .skills-list li { padding: 0.4rem 1rem; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.75); font-size: 0.88rem; }
+  .lang-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .lang-list li { padding: 0.4rem 1rem; border: 1.5px solid rgba(255,77,28,0.4); color: var(--accent); font-size: 0.88rem; }
+
+  .footer-bar { background: var(--dark); color: rgba(255,255,255,0.3); text-align: center; padding: 1.5rem; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.75rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 320px; }
+    .hero-left { padding: 3rem 1.5rem 2rem; }
+    .section-header { padding: 1.5rem; }
+    .section-title { font-size: 1.7rem; }
+    .timeline { grid-template-columns: 100px 1fr; padding: 1.5rem; }
+    .projects-grid, .future-grid { grid-template-columns: 1fr; }
+    .project-card { border-right: none; border-bottom: 2px solid var(--dark); }
+    .project-card:last-child { border-bottom: none; }
+    .blog-layout { grid-template-columns: 1fr; }
+    .blog-sidebar { border-right: none; border-bottom: 2px solid var(--dark); }
+    .blog-content { padding: 2rem 1.5rem; }
+    .future-card { border-right: none; border-bottom: 2px solid var(--dark) !important; }
+    .future-card:last-child { border-bottom: none !important; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .contact-left { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Sergio.</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Ervaring</a></li>
+    <li><a href="#projects">Projecten</a></li>
+    <li><a href="#blog">Mijn Verhaal</a></li>
+    <li><a href="#future">Toekomst</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-tag">Open voor nieuwe uitdagingen</div>
+      <h1 class="hero-name">Sergio Nicolai<br><span>Schermer.</span></h1>
+      <p class="hero-sub">Timmerman, projectmanager en projectleider. Zeven jaar ervaring in Australië — brengt nu vakmanschap en passie terug naar Nederland.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Neem contact op</a>
+        <a href="#projects" class="btn btn-outline">Bekijk werk</a>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Scroll om te ontdekken ↓</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">7+</div>
+        <div class="stat-label">Jaar in Australië</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1ste</div>
+        <div class="stat-label">Drijvend zonnepark EU</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Talen gesproken</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">31</div>
+        <div class="stat-label">Jaar oud</div>
+      </div>
+    </div>
+    <p class="hero-scroll">Den Burg - Texel · Nederlandse nationaliteit</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Ervaring — <span>t</span></h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-year">Sep 2023 – Heden</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Zelfstandig Timmerman — <span class="timeline-company">Dutch Design Co., Byron Bay</span></div>
+        <p class="timeline-desc">Uitvoeren van bouw- en reparatiewerkzaamheden, projectvoorbereiding, materiaal selectie en contact met klanten en leveranciers. Verantwoordelijk voor offertes en administratie.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Dec 2021 – Dec 2023</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Opleiding Timmerman — <span class="timeline-company">Dhatu Building Service, Byron Bay</span></div>
+        <p class="timeline-desc">Succesvol een versnelde opleiding tot timmerman afgerond. In staat om zelfstandig bouw- en renovatieprojecten uit te voeren op voornamelijk residentiële sites.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Okt 2020 – Dec 2021</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Project Manager — <span class="timeline-company">Sublime Gardens, Byron Bay</span></div>
+        <p class="timeline-desc">Schakel tussen kantoor en werkvloer voor tuinontwerp en uitvoering. Bewaken van planning en budgetten, aansturen van het team en waarborgen van kwaliteit.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Maart 2019 – Okt 2020</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Zelfstandig Ondernemer — <span class="timeline-company">Diverse boerderijen, Australië</span></div>
+        <p class="timeline-desc">Uitvoeren van onderhouds- en reparatiewerkzaamheden aan voertuigen en gebouwen. Verantwoordelijk voor een efficiënte en veilige werkplanning op zowel kleine als grote boerderijen.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Aug 2017 – Maart 2019</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Installateur drijvend zonnepark — <span class="timeline-company">Texel4Trading, Nederland</span></div>
+        <p class="timeline-desc">Leiding gegeven aan de installatie van Europa's eerste drijvende zonnepark. Aansturen van technische teams en coördinatie van alle projectfases.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projecten — <span>Wat ik heb gebouwd</span></h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-title">Eerste drijvende zonnepark Europa</div>
+      <p class="project-desc">Coördinatie van de installatie van een baanbrekend drijvend zonnepark in Nederland. Focus op duurzaamheid, veiligheid en technische teamleiding.</p>
+      <div class="project-tags">
+        <span class="project-tag">Duurzame Energie</span>
+        <span class="project-tag">Projectleiding</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-title">Residentiële Renovatie Byron Bay</div>
+      <p class="project-desc">Uitvoeren van constructief en afwerkingstimmerwerk als onderaannemer voor grootschalige renovaties met een hoge waarde.</p>
+      <div class="project-tags">
+        <span class="project-tag">Timmerwerk</span>
+        <span class="project-tag">Residentieel</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-title">Dutch Design Co.</div>
+      <p class="project-desc">Eigen timmerbedrijf opgericht en gerund in Australië. Volledig beheer van klantrelaties, offertes, materialen en uitvoering.</p>
+      <div class="project-tags">
+        <span class="project-tag">Ondernemerschap</span>
+        <span class="project-tag">Bouw</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Mijn Verhaal — <span>In eigen woorden</span></h2>
+  </div>
+  <div class="blog-layout">
+    <div class="blog-sidebar">
+      <div class="blog-meta-item">
+        <div class="blog-meta-label">Opleiding</div>
+        <div class="blog-meta-value">BBA International Tourism Management</div>
+      </div>
+      <div class="blog-meta-item">
+        <div class="blog-meta-label">Certificering</div>
+        <div class="blog-meta-value">Cert. III Carpentry & Cert. IV Construction Mgmt</div>
+      </div>
+      <div class="blog-meta-item">
+        <div class="blog-meta-label">Tags</div>
+        <div style="margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="project-tag" style="font-size:0.72rem;">timmerman</span>
+          <span class="project-tag" style="font-size:0.72rem;">australië</span>
+          <span class="project-tag" style="font-size:0.72rem;">projectmanagement</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-content">
+      <h2 class="blog-headline">Zeven jaar in Australië: Van boerderijen tot eigen onderneming</h2>
+      <p class="blog-lede">Ik heb niet het meest voor de hand liggende pad bewandeld. Na mijn studie BBA en een jaar in Kroatië, koos ik voor het avontuur in Australië. Wat volgde waren de meest vormende jaren van mijn leven.</p>
+      <div class="blog-body">
+        <p>In Australië heb ik geleerd wat echt hard werken, vindingrijkheid en zelfredzaamheid betekenen. Ik werkte op boerderijen door het hele land, waar ik voertuigen repareerde, land onderhield en verantwoordelijk was voor de veiligheid in vaak afgelegen en veeleisende omstandigheden.</p>
+
+        <h3>Vakmanschap en Organisatie</h3>
+        <p>Voordat ik naar Australië vertrok, had ik al mogen proeven aan leiderschap bij Texel4Trading, waar we het eerste drijvende zonnepark van Europa installeerden. Dit wakkerde mijn liefde aan voor projecten die er echt toe doen—projecten waar je voor kunt staan en kunt zeggen: "Dit heb ik gebouwd."</p>
+
+        <div class="blog-pull">"Ik hou van het gevoel om voor iets te staan dat af is—iets echts, dat de tijd zal doorstaan."</div>
+
+        <p>Timmerwerk gaf me dat gevoel elke dag. Na mijn opleiding richtte ik Dutch Design Co. op in Byron Bay. Het runnen van mijn eigen bedrijf leerde me dat vakmanschap en organisatie onlosmakelijk met elkaar verbonden zijn. Je kunt de beste timmerman in de kamer zijn, maar zonder planning en communicatie wordt er niets gebouwd.</p>
+
+        <h3>Terug naar Nederland</h3>
+        <p>Australië heeft me gevormd, maar op mijn 31ste ben ik klaar voor een nieuw hoofdstuk op eigen bodem. Ik wil mijn technische vaardigheden, projectmanagementervaring en werkethiek inzetten bij een dynamisch team met hoge standaarden en een duidelijke missie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="future">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">De <span>Toekomst</span> </h2>
+  </div>
+  <div class="future-grid">
+    <div class="future-card">
+      <div class="future-icon">→</div>
+      <div class="future-title">Groeien in de Nederlandse bouwsector</div>
+      <p class="future-desc">Ik zoek een omgeving waarin ik direct kan bijdragen en kan groeien binnen een organisatie die waarde hecht aan betrouwbaarheid en vakmanschap. Ook zou ik graag willen doorleren en zoek een bedrijf die verder leren hoog in het vaandel heeft staan. </p>
+    </div>
+    <div class="future-card">
+      <div class="future-icon">✦</div>
+      <div class="future-title">Stap naar bouwmanagement</div>
+      <p class="future-desc">Met mijn voltooit Certificate IV in Building and Construction Management wil ik timmerwerk combineren met formele managementtaken.</p>
+    </div>
+    <div class="future-card">
+      <div class="future-icon">◎</div>
+      <div class="future-title">Duurzaam en innovatief bouwen</div>
+      <p class="future-desc">Gezien mijn ervaring met zonne-energie en veel bezig zijn met verduurzamen wil ik deel uitmaken van projecten die grenzen verleggen met groenere materialen en slimmere processen.</p>
+    </div>
+    <div class="future-card">
+      <div class="future-icon">↗</div>
+      <div class="future-title">Iets blijvends bouwen</div>
+      <p class="future-desc">Ik wil over tien jaar terugkijken en weten dat ik heb bijgedragen aan blijvende projecten die met zorg en kunde zijn gerealiseerd, die duurzaam zijn en die dienen voor de nieuwe generatie.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2 class="contact-headline">Let's Talk <span>.</span></h2>
+      <p style="color: var(--muted); max-width:380px; line-height:1.7;">Ik ben op zoek naar nieuwe kansen en sta open voor gesprekken over rollen, projecten of samenwerkingen. Aarzel niet om contact op te nemen.</p>
+      <div class="contact-info">
+        <a href="mailto:Sergio_schermer@live.nl">Sergio_schermer@live.nl</a>
+        <a href="tel:+31623933013">+31 6 23 93 30 13</a>
+      </div>
+      <p style="margin-top:1.5rem; font-size:0.85rem; color:var(--muted);">Den Burg - Texel · 31 jaar oud · Nederlandse nationaliteit</p>
+    </div>
+    <div class="contact-right">
+      <div class="contact-right-title">Vaardigheden & Kwalificaties</div>
+      <ul class="skills-list">
+        <li>Timmerwerk</li>
+        <li>Projectmanagement</li>
+        <li>Bouwmanagement</li>
+        <li>Residentiële Bouw</li>
+        <li>Commerciële Bouw</li>
+        <li>Offertes & Calculatie</li>
+        <li>Duurzaamheid</li>
+        <li>VCA Vol Diploma</li>
+        <li>Machinebediening</li>
+        <li>Probleemoplossend</li>
+        <li>Leiderschap</li>
+        <li>Affiniteit met AI </li>
+      </ul>
+      <div class="contact-right-title" style="margin-top:2.5rem;">Talen</div>
+      <ul class="lang-list">
+        <li>Nederlands</li>
+        <li>Engels</li>
+        <li>Duits</li>
+        <li>Spaans (basis)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="footer-bar">© 2026 Sergio Nicolai Schermer — Ontworpen voor succes</div>
+
+</body>
+</html>
